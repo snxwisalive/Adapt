@@ -1,0 +1,13 @@
+.env
+
+backend/build/
+backend/.gradle/
+backend/adapt/src/main/resources/application.properties
+
+frontend/node_modules/
+frontend/dist/
+
+.DS_Store
+*.iml
+.idea/
+.vscode/

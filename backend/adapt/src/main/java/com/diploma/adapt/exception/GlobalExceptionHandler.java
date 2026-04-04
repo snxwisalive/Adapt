@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.util.NoSuchElementException;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+
+import io.jsonwebtoken.io.DecodingException;
+
 import org.springframework.web.bind.MethodArgumentNotValidException;
 
 @RestControllerAdvice
@@ -41,5 +44,11 @@ public class GlobalExceptionHandler {
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public ApiError handleNotValid(MethodArgumentNotValidException ex) {
 		return new ApiError(400, ex.getBindingResult().getFieldError().getDefaultMessage());
+	}
+
+	@ExceptionHandler(DecodingException.class)
+	@ResponseStatus(HttpStatus.FORBIDDEN)
+	public ApiError handleDecoding(DecodingException ex) {
+		return new ApiError(403, "Wrong token");
 	}
 }

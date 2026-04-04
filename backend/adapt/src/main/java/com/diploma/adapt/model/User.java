@@ -1,7 +1,13 @@
 package com.diploma.adapt.model;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -11,7 +17,7 @@ import java.util.UUID;
 @Builder
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements UserDetails {
     
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -43,4 +49,9 @@ public class User {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Goal goal;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of();
+    }
 }

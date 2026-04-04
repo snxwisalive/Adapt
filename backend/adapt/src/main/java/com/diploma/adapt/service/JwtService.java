@@ -31,4 +31,13 @@ public class JwtService {
         byte[] getBytes = secretKey.getBytes();
         return Keys.hmacShaKeyFor(getBytes);
     }
+
+    public String extractUsername(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(getSigningKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .getSubject();
+    }
 }

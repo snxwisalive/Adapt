@@ -5,6 +5,7 @@ import java.util.NoSuchElementException;
 import org.springframework.stereotype.Service;
 
 import com.diploma.adapt.dto.UserProfileDTO;
+import com.diploma.adapt.dto.UserUpdateDTO;
 import com.diploma.adapt.mapper.UserMapper;
 import com.diploma.adapt.model.User;
 import com.diploma.adapt.repository.UserRepository;
@@ -23,5 +24,20 @@ public class UserService {
         User user = userRepository.findByUsername(username).orElseThrow(() -> new NoSuchElementException("User not found"));
 
         return userMapper.toProfileDTO(user);
+    }
+
+    public UserProfileDTO updateUserProfile(String username, UserUpdateDTO dto) {
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new NoSuchElementException("User not found"));
+
+        user.setAge(dto.getAge());
+        user.setHeight(dto.getHeight());
+        user.setWeight(dto.getWeight());
+        user.setGender(dto.getGender());
+        user.setActivityLevel(dto.getActivityLevel());
+        user.setGoal(dto.getGoal());
+
+        User saved = userRepository.save(user);
+
+        return userMapper.toProfileDTO(saved);
     }
 }

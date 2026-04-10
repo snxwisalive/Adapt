@@ -11,3 +11,5 @@ spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
 
 jwt.secret=secret
 jwt.expiration=123456
+
+OPEN_FOOD_FACTS_URL=https://world.openfoodfacts.org

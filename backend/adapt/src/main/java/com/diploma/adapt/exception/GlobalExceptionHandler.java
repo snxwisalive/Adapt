@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.nio.file.AccessDeniedException;
 import java.util.NoSuchElementException;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
@@ -57,5 +58,11 @@ public class GlobalExceptionHandler {
 	@ResponseStatus(HttpStatus.FORBIDDEN)
 	public ApiError handleExpired(ExpiredJwtException ex) {
 		return new ApiError(403, "Wrong or expired token");
+	}
+
+	@ExceptionHandler(AccessDeniedException.class)
+	@ResponseStatus(HttpStatus.FORBIDDEN)
+	public ApiError handleAccessDenied(AccessDeniedException ex) {
+		return new ApiError(403, "Access denied");
 	}
 }
